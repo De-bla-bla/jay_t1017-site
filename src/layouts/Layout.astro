@@ -1,0 +1,21 @@
+---
+// src/layouts/Layout.astro
+const { children } = Astro.props;
+---
+<!doctype html>
+<html lang="en" class="antialiased">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Jay_t1017 — Official</title>
+    <meta name="description" content="Jay_t1017 — Ghanaian Afrobeats artist" />
+    <link rel="icon" href="/images/logo.png" />
+  </head>
+  <body class="bg-black text-white">
+    <slot />
+    <!-- Footer -->
+    <footer class="py-8 text-center text-sm text-gray-300">
+      © Jay_t1017 — Made with AfroVibes • Black Star Energy
+    </footer>
+  </body>
+</html>

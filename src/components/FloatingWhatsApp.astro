@@ -1,0 +1,18 @@
+---
+// src/components/FloatingWhatsApp.astro
+const { whatsappUrl = 'https://wa.me/' } = Astro.props;
+---
+<style>
+  .floating {
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    z-index: 60;
+  }
+</style>
+
+<a class="floating" href={whatsappUrl} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp booking" title="WhatsApp Booking">
+  <div class="w-16 h-16 rounded-full shadow-lg flex items-center justify-center bg-[#25D366] border-2 border-black hover:scale-105 transition">
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-black" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 11.5a9.5 9.5 0 1 1-9.5-9.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </div>
+</a>

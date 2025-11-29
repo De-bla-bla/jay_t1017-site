@@ -1,0 +1,22 @@
+---
+// src/components/MusicGrid.astro
+const { items = [] } = Astro.props;
+---
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+  {items.map((item) => (
+    <article class="bg-gradient-to-br from-gray-900/60 to-black/60 border border-gray-800 rounded-lg overflow-hidden shadow-lg">
+      <img src={item.cover || '/images/hero-desktop.jpg'} alt={item.title} class="w-full h-56 object-cover" />
+      <div class="p-4">
+        <h3 class="font-bold text-xl">{item.title}</h3>
+        <div class="mt-3 flex gap-3">
+          {item.embedUrl && (
+            <a class="px-3 py-2 rounded bg-yellow-400 text-black font-semibold" href={item.embedUrl} target="_blank" rel="noopener noreferrer">Play</a>
+          )}
+          {item.downloadUrl && (
+            <a class="px-3 py-2 rounded bg-red-500 text-white font-semibold" href={item.downloadUrl} target="_blank" rel="noopener noreferrer">Download</a>
+          )}
+        </div>
+      </div>
+    </article>
+  ))}
+</div>

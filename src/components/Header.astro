@@ -1,0 +1,19 @@
+---
+// src/components/Header.astro
+const { logo } = Astro.props;
+---
+<header class="py-4 px-6 md:px-10 lg:px-20 flex items-center justify-between bg-black/60">
+  <div class="flex items-center gap-4">
+    <a href="/" class="flex items-center gap-3">
+      <img src={logo} alt="logo" class="w-12 h-12 object-contain" />
+      <span class="text-lg font-extrabold tracking-wide">Jay_t1017</span>
+    </a>
+  </div>
+
+  <nav class="hidden md:flex items-center gap-6">
+    <a href="#music" class="text-sm hover:underline">Music</a>
+    <a href="#merch" class="text-sm hover:underline">Merch</a>
+    <a href="#links" class="text-sm hover:underline">Links</a>
+    <a href="/admin" class="text-sm px-3 py-2 border border-yellow-400 rounded hover:bg-yellow-400/10">Admin</a>
+  </nav>
+</header>

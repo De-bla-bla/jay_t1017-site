@@ -1,0 +1,27 @@
+---
+// src/components/MerchGrid.astro
+const { items = [] } = Astro.props;
+
+function makeWhatsAppLink(msg) {
+  if (!msg) return 'https://wa.me/';
+  const encoded = encodeURIComponent(msg);
+  return `https://wa.me/?text=${encoded}`;
+}
+---
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+  {items.map((item) => (
+    <article class="bg-gradient-to-br from-black to-gray-900 border border-gray-800 rounded-lg overflow-hidden shadow-md">
+      <img src={item.image || '/images/hero-desktop.jpg'} alt={item.name} class="w-full h-64 object-cover" />
+      <div class="p-4">
+        <h3 class="font-bold text-lg">{item.name}</h3>
+        <p class="mt-1 text-yellow-300 font-extrabold">{item.price ? `GHS ${item.price}` : 'Contact for price'}</p>
+        <p class="mt-2 text-sm text-gray-300">Size: {item.size || 'One size'}</p>
+        <div class="mt-4">
+          <a class="inline-flex items-center gap-2 px-4 py-2 rounded bg-[#25D366] text-black font-bold" href={makeWhatsAppLink(item.whatsappMessage)} target="_blank" rel="noopener noreferrer">
+            Buy on WhatsApp
+          </a>
+        </div>
+      </div>
+    </article>
+  ))}
+</div>

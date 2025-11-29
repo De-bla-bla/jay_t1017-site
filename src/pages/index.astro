@@ -1,0 +1,95 @@
+---
+// src/pages/index.astro
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import MusicGrid from '../components/MusicGrid.astro';
+import MerchGrid from '../components/MerchGrid.astro';
+import SocialLinks from '../components/SocialLinks.astro';
+import FloatingWhatsApp from '../components/FloatingWhatsApp.astro';
+
+import fs from 'fs';
+import path from 'path';
+import matter from 'gray-matter';
+
+const readCollection = (dir) => {
+  const p = path.join(Astro.resolve('.'), dir);
+  if (!fs.existsSync(p)) return [];
+  return fs.readdirSync(p).filter(f => f.endsWith('.md')).map(filename => {
+    const raw = fs.readFileSync(path.join(p, filename), 'utf-8');
+    const { data, content } = matter(raw);
+    return { ...data, content, slug: filename.replace(/\.md$/, '') };
+  });
+};
+
+const heroArr = readCollection('content/hero');
+const hero = heroArr[0] || { tagline: "Jay T. — Afrobeats & Vibez", whatsappUrl: "https://wa.me/233" };
+
+const music = readCollection('content/music');
+const merch = readCollection('content/merch');
+const links = readCollection('content/links');
+---
+
+<Layout>
+  <main class="min-h-screen bg-black text-white font-sans">
+    <Header logo="/images/logo.png" />
+
+    <!-- HERO -->
+    <section
+      class="relative overflow-hidden"
+      style="background: linear-gradient(180deg, rgba(0,0,0,.6), rgba(0,0,0,.7));"
+      aria-label="Hero"
+    >
+      <picture>
+        <source media="(max-width:767px)" srcset="/images/hero-mobile.jpg">
+        <img src="/images/hero-desktop.jpg" alt="Hero" class="w-full h-[60vh] object-cover brightness-75">
+      </picture>
+
+      <div class="container mx-auto px-6 md:px-10 lg:px-20 -mt-[40vh] md:-mt-[30vh]">
+        <div class="bg-gradient-to-r from-red-600/60 via-yellow-600/30 to-green-600/60 border-2 border-black shadow-xl p-6 rounded-xl backdrop-blur-md max-w-3xl">
+          <div class="flex items-center gap-4">
+            <img src="/images/logo.png" alt="logo" class="w-20 h-20 object-contain border-2 border-black rounded-full p-1 bg-white">
+            <div>
+              <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight">Jay_t1017</h1>
+              <p class="mt-1 text-yellow-300/95 text-sm md:text-base">{hero.tagline}</p>
+            </div>
+          </div>
+
+          <div class="mt-6 flex flex-col sm:flex-row gap-4">
+            <a
+              class="inline-flex items-center justify-center gap-3 px-6 py-3 rounded-lg text-black font-bold bg-[#25D366] hover:scale-105 transition"
+              href={hero.whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 11.5a9.5 9.5 0 1 1-9.5-9.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span class="leading-none">Message on WhatsApp</span>
+            </a>
+            <a href="#music" class="inline-flex items-center justify-center gap-3 px-6 py-3 rounded-lg text-white font-bold border border-yellow-400 hover:bg-yellow-400/10 transition">
+              Listen
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MUSIC -->
+    <section id="music" class="container mx-auto px-6 md:px-10 lg:px-20 py-16">
+      <h2 class="text-3xl font-black mb-6 text-yellow-300">Music</h2>
+      <MusicGrid items={music} />
+    </section>
+
+    <!-- MERCH -->
+    <section id="merch" class="container mx-auto px-6 md:px-10 lg:px-20 py-16">
+      <h2 class="text-3xl font-black mb-6 text-red-400">Merch</h2>
+      <MerchGrid items={merch} />
+    </section>
+
+    <!-- LINKS -->
+    <section id="links" class="container mx-auto px-6 md:px-10 lg:px-20 py-16">
+      <h2 class="text-3xl font-black mb-6 text-green-400">Listen / Follow</h2>
+      <SocialLinks items={links} />
+    </section>
+
+    <FloatingWhatsApp whatsappUrl={hero.whatsappUrl} />
+  </main>
+</Layout>
