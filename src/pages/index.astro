@@ -12,7 +12,8 @@ import path from 'path';
 import matter from 'gray-matter';
 
 const readCollection = (dir) => {
-  const p = path.join(Astro.resolve('.'), dir);
+  // Use process.cwd() to resolve project root during build/runtime
+  const p = path.join(process.cwd(), dir);
   if (!fs.existsSync(p)) return [];
   return fs.readdirSync(p).filter(f => f.endsWith('.md')).map(filename => {
     const raw = fs.readFileSync(path.join(p, filename), 'utf-8');
