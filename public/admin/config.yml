@@ -19,34 +19,36 @@ collections:
   - name: "music"
     label: "Music"
     folder: "content/music"
-    create: true
-    slug: "{{slug}}"
-    fields:
-      - {label: "Title", name: "title", widget: "string"}
-      - {label: "Cover Image", name: "cover", widget: "image"}
-      - {label: "Embed URL", name: "embedUrl", widget: "string"}
-      - {label: "Download URL", name: "downloadUrl", widget: "string"}
-      - {label: "Body", name: "body", widget: "markdown"}
-
-  - name: "merch"
-    label: "Merch"
-    folder: "content/merch"
-    create: true
-    slug: "{{slug}}"
-    fields:
-      - {label: "Product Name", name: "name", widget: "string"}
-      - {label: "Price (GHS)", name: "price", widget: "number"}
-      - {label: "Product Image", name: "image", widget: "image"}
-      - {label: "Size", name: "size", widget: "string"}
-      - {label: "WhatsApp Purchase Message", name: "whatsappMessage", widget: "string"}
-      - {label: "Body", name: "body", widget: "markdown"}
-
-  - name: "links"
-    label: "Links"
-    folder: "content/links"
-    create: true
-    slug: "{{slug}}"
-    fields:
-      - {label: "Platform", name: "platform", widget: "string"}
-      - {label: "URL", name: "url", widget: "string"}
-      - {label: "Icon", name: "icon", widget: "image"}
+    collections:
+      - name: "hero"
+        label: "Hero"
+        folder: "content/hero"
+        create: true
+        slug: "{{slug}}"
+        fields:
+          - {label: "Title", name: "title", widget: "string"}
+          - {label: "Body", name: "body", widget: "markdown"}
+      - name: "music"
+        label: "Music"
+        folder: "content/music"
+        create: true
+        slug: "{{slug}}"
+        fields:
+          - {label: "Title", name: "title", widget: "string"}
+          - {label: "Body", name: "body", widget: "markdown"}
+      - name: "merch"
+        label: "Merch"
+        folder: "content/merch"
+        create: true
+        slug: "{{slug}}"
+        fields:
+          - {label: "Title", name: "title", widget: "string"}
+          - {label: "Body", name: "body", widget: "markdown"}
+      - name: "links"
+        label: "Links"
+        folder: "content/links"
+        create: true
+        slug: "{{slug}}"
+        fields:
+          - {label: "Title", name: "title", widget: "string"}
+          - {label: "Body", name: "body", widget: "markdown"}

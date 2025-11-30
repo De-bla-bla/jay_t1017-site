@@ -4,14 +4,55 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Site Admin</title>
+    <style>
+      body{font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;margin:3rem}
+      .card{max-width:700px;padding:1.5rem;border-radius:8px;border:1px solid #e5e7eb;background:#fff}
+      .actions{margin-top:1rem}
+      button{background:#111827;color:#fff;border:none;padding:.6rem 1rem;border-radius:6px;cursor:pointer}
+      a.docs{margin-left:.75rem;color:#2563eb}
+    </style>
   </head>
   <body>
+    <div class="card">
+      <h1>Site Admin</h1>
+      <p>This page loads <strong>Netlify CMS</strong>. To allow editors to sign in and save content you must enable <strong>Netlify Identity</strong> and <strong>Git Gateway</strong> in your Netlify site settings (see the admin README).</p>
+
+      <div class="actions">
+        <button id="login-btn">Sign in / Open Admin</button>
+        <a class="docs" href="https://www.netlifycms.org/docs/intro/" target="_blank" rel="noreferrer">Netlify CMS docs</a>
+      </div>
+
+      <p style="margin-top:.75rem;color:#6b7280">After signing in the CMS will appear below or at the top of the page. If you want editors to commit to your repo, enable <em>Git Gateway</em> and connect your Git provider.</p>
+    </div>
+
+    <!-- Netlify Identity widget (to sign in) -->
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <!-- Netlify CMS core -->
     <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
+
     <script>
-      // Netlify CMS will load config from /admin/config.yml
-      // If using Netlify Identity, make sure it's enabled in Netlify dashboard.
+      // Initialize Netlify Identity and open the widget on button click.
       if (window.netlifyIdentity) {
-        window.netlifyIdentity.on('init', user => console.log('Netlify Identity initialized', user))
+        window.netlifyIdentity.on('init', function(user) {
+          // optionally handle initial user state
+        });
+      }
+
+      document.getElementById('login-btn').addEventListener('click', function(){
+        if (window.netlifyIdentity) {
+          // Open the Netlify Identity modal
+          window.netlifyIdentity.open();
+          // when a user logs in, Netlify CMS will pick up the session and show
+        } else {
+          alert('Netlify Identity widget not available. Ensure this site is deployed on Netlify.');
+        }
+      });
+
+      // On login event, reload the page so Netlify CMS can pick up the auth token
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on('login', function() {
+          window.location.reload();
+        });
       }
     </script>
   </body>
